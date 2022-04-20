@@ -1,5 +1,7 @@
 package com.motompro.game_engine;
 
+import com.motompro.game_engine.input.KeyListener;
+import com.motompro.game_engine.input.MouseListener;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
@@ -43,6 +45,11 @@ public class Window {
         this.window = glfwCreateWindow(width, height, title, NULL, NULL);
         if(window == NULL)
             throw new RuntimeException("Failed to create the GLFW window");
+        // Creating input callbacks
+        glfwSetCursorPosCallback(window, MouseListener::mousePositionCallback);
+        glfwSetMouseButtonCallback(window, MouseListener::mouseButtonCallback);
+        glfwSetScrollCallback(window, MouseListener::mouseScrollCallback);
+        glfwSetKeyCallback(window, KeyListener::keyCallback);
         try(MemoryStack stack = stackPush()) {
             IntBuffer pWidth = stack.mallocInt(1);
             IntBuffer pHeight = stack.mallocInt(1);

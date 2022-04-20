@@ -16,6 +16,8 @@ public abstract class Game {
     public abstract void update();
     public abstract void render();
 
+    public abstract Window getGameWindow();
+
     public void stop() {
         this.running = false;
     }
